@@ -1,0 +1,6 @@
+framework module Pods_OpenMovement_AxLE_Firmware_Updater {
+  umbrella header "Pods-OpenMovement AxLE Firmware Updater-umbrella.h"
+
+  export *
+  module * { export * }
+}
