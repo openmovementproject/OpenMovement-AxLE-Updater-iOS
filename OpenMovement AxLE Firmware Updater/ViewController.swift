@@ -156,6 +156,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             
             if dfuQueue.contains(peripheral.identifier)
             {
+                dfuTimeout?.invalidate()
                 dfuQueue.remove(at: dfuQueue.index(of: peripheral.identifier)!)
                 device!.peripheral.writeValue("M".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
                 device!.peripheral.writeValue("2".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
