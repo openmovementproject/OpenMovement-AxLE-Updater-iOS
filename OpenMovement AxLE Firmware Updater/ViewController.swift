@@ -94,7 +94,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             let alert = UIAlertController(title: "DFU Device Found!", message: "A device has been found in DFU mode. On iOS we cannot identify individual devices. Would you like to begin updating it?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (a) in
-                let initiator = DFUServiceInitiator(centralManager: self.axleCentralManger!, target: peripheral).with(firmware: self.firmware)
+                let initiator = DFUServiceInitiator(centralManager: CBCentralManager(delegate: self, queue: nil), target: peripheral).with(firmware: self.firmware)
                 initiator.logger = self
                 initiator.delegate = self
                 initiator.progressDelegate = self
@@ -250,8 +250,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         case .completed:
             SVProgressHUD.showSuccess(withStatus: "Device successfully updated!")
             dfuInProgress = false
-            axleCentralManger?.delegate = self
-            axleCentralManger?.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         case .connecting:
             SVProgressHUD.show(withStatus: "Connecting to DFU Device...")
         case .starting:
@@ -269,8 +267,6 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             dfuTimeout?.invalidate()
             SVProgressHUD.showError(withStatus: "Failed to update Device...")
             dfuInProgress = false
-            axleCentralManger?.delegate = self
-            axleCentralManger?.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         }
     }
     
