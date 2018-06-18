@@ -42,7 +42,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         
         dfuInProgress = false
         
-        firmware = DFUFirmware(urlToZipFile: URL(fileURLWithPath: Bundle.main.path(forResource: "update-1.5", ofType: "zip")!))!
+        firmware = DFUFirmware(urlToZipFile: URL(fileURLWithPath: Bundle.main.path(forResource: "update-1.7", ofType: "zip")!))!
         
         super.init(coder: aDecoder)
         axleCentralManger = CBCentralManager(delegate: self, queue: nil)
@@ -94,7 +94,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             let alert = UIAlertController(title: "DFU Device Found!", message: "A device has been found in DFU mode. On iOS we cannot identify individual devices. Would you like to begin updating it?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (a) in
-                let initiator = DFUServiceInitiator(centralManager: CBCentralManager(delegate: self, queue: nil), target: peripheral).with(firmware: self.firmware)
+                let initiator = DFUServiceInitiator(centralManager: self.axleCentralManger!, target: peripheral).with(firmware: self.firmware)
                 initiator.logger = self
                 initiator.delegate = self
                 initiator.progressDelegate = self
@@ -132,7 +132,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             if let si = infoService, let su = uartService
             {
                 peripheral.discoverCharacteristics([SerialNumberCharacUuid, FirmwareCharacUuid], for: si)
-                peripheral.discoverCharacteristics([UartTxCharacUuid], for: su)
+                peripheral.discoverCharacteristics([UartRxCharacUuid, UartTxCharacUuid], for: su)
             }
         }
     }
@@ -152,45 +152,19 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             if service.uuid == UartServiceUuid
             {
                 device?.txUart = service.characteristics?.first(where: { (c) -> Bool in return c.uuid == UartTxCharacUuid })
+                device?.rxUart = service.characteristics?.first(where: { (c) -> Bool in return c.uuid == UartRxCharacUuid })
             }
             
             if dfuQueue.contains(peripheral.identifier)
             {
                 dfuTimeout?.invalidate()
-                dfuQueue.remove(at: dfuQueue.index(of: peripheral.identifier)!)
-                device!.peripheral.writeValue("M".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
-                device!.peripheral.writeValue("2".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
-                device!.peripheral.writeValue("M".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
-                device!.peripheral.writeValue("2".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
-                device!.peripheral.writeValue("M".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
-                device!.peripheral.writeValue("2".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
-                
-                let alert = UIAlertController(title: "WARNING", message: "You are about to update an AxLE. This will wipe all data! The device should have vibrated and flashed when selected.", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (a) in
-                    device!.peripheral.writeValue("XB".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
-                    
-                    if let di = self.devices.index(where: { (d) -> Bool in
-                        return d.peripheral.identifier == peripheral.identifier
-                    })
-                    {
-                        self.devices.remove(at: di)
-                        self.tableView.reloadData()
-                    }
-                    
-                    SVProgressHUD.show(withStatus: "Placing in DFU mode... \n(this may take up to 30 seconds)")
-                    self.dfuTimeout?.invalidate()
-                    self.dfuTimeout = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { (timer) in
-                        SVProgressHUD.showError(withStatus: "Unable to put device in DFU mode!")
-                    })
-                }))
-                
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (a) in
-                    self.axleCentralManger?.cancelPeripheralConnection(peripheral)
-                }))
-                
-                SVProgressHUD.dismiss()
-                present(alert, animated: true)
+                device?.peripheral.setNotifyValue(true, for: device!.rxUart!)
+                device?.peripheral.writeValue("U\(device!.mac!.suffix(6))".data(using: .utf8)!, for: device!.txUart!, type: .withoutResponse)
+                SVProgressHUD.show(withStatus: "Authenticating with Device...")
+                dfuTimeout?.invalidate()
+                dfuTimeout = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in
+                    self.askForPass(device: device!)
+                })
             }
             else if service.uuid == DeviceInformationServiceUuid
             {
@@ -214,6 +188,16 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
                 return d.peripheral.identifier == peripheral.identifier
             }
             
+            if characteristic.uuid == UartRxCharacUuid && dfuQueue.contains(peripheral.identifier)
+            {
+                let response = String(data: characteristic.value!, encoding: .utf8)!
+                print("RX -- \(response)")
+                if response.range(of: "Authenticated") != nil
+                {
+                    dfuTimeout?.invalidate()
+                    startDfu(device: device!)
+                }
+            }
             
             if characteristic.uuid == FirmwareCharacUuid
             {
@@ -225,13 +209,87 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
                 device?.mac = String(bytes: characteristic.value!, encoding: .utf8)!
             }
             
-            if ((device?.mac) != nil) && ((device?.version) != nil)
+            if !dfuQueue.contains(peripheral.identifier)
+                && ((device?.mac) != nil) && ((device?.version) != nil)
             {
                 axleCentralManger?.cancelPeripheralConnection(peripheral)
             }
             
             tableView.reloadData()
         }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        if (characteristic.isNotifying)
+        {
+            peripheral.readValue(for: characteristic)
+        }
+    }
+    
+    func startDfu(device:Device)
+    {
+        device.peripheral.writeValue("M".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+        device.peripheral.writeValue("2".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+        device.peripheral.writeValue("M".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+        device.peripheral.writeValue("2".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+        device.peripheral.writeValue("M".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+        device.peripheral.writeValue("2".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+        
+        let alert = UIAlertController(title: "WARNING", message: "You are about to update an AxLE. The device should have vibrated and flashed.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (a) in
+            device.peripheral.writeValue("XB".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+            
+            if let di = self.devices.index(where: { (d) -> Bool in
+                return d.peripheral.identifier == device.peripheral.identifier
+            })
+            {
+                self.devices.remove(at: di)
+                self.tableView.reloadData()
+            }
+            
+            SVProgressHUD.show(withStatus: "Placing in DFU mode... \n(this may take up to 45 seconds)")
+            self.dfuTimeout?.invalidate()
+            self.dfuTimeout = Timer.scheduledTimer(withTimeInterval: 45, repeats: false, block: { (timer) in
+                SVProgressHUD.showError(withStatus: "Unable to put device in DFU mode!")
+            })
+            
+            self.dfuQueue.remove(at: self.dfuQueue.index(of: device.peripheral.identifier)!)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (a) in
+            self.axleCentralManger?.cancelPeripheralConnection(device.peripheral)
+        }))
+        
+        SVProgressHUD.dismiss()
+        present(alert, animated: true)
+    }
+    
+    func askForPass(device:Device)
+    {
+        let alert = UIAlertController(title: "Failed to Authenticate!", message: "Please enter the devices password or reset the device.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            let textField = alert.textFields![0] as UITextField
+            device.peripheral.writeValue("U\(textField.text!)".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+            SVProgressHUD.show(withStatus: "Authenticating with Device...")
+            self.dfuTimeout?.invalidate()
+            self.dfuTimeout = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in
+                self.askForPass(device: device)
+            })
+        }))
+        
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = String(device.mac!.suffix(6))
+        })
+        
+        alert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { (action) in
+            device.peripheral.writeValue("E\(device.mac!.suffix(6))".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
+            self.startDfu(device: device)
+        }))
+        
+        SVProgressHUD.dismiss()
+        self.present(alert, animated: true)
     }
     
     func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int, currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
@@ -245,18 +303,27 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
     }
     
     func dfuStateDidChange(to state: DFUState) {
-        print("DFU STATE -- \(state)")
+        print("DFU STATE -- \(state.rawValue)")
         switch state {
         case .completed:
             SVProgressHUD.showSuccess(withStatus: "Device successfully updated!")
             dfuInProgress = false
+            axleCentralManger?.delegate = self
+            axleCentralManger?.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         case .connecting:
             SVProgressHUD.show(withStatus: "Connecting to DFU Device...")
+            dfuTimeout = Timer.scheduledTimer(withTimeInterval: 10, repeats: false, block: { (timer) in
+                SVProgressHUD.showError(withStatus: "Failed to connect to DFU Device...")
+                self.dfuInProgress = false
+                self.axleCentralManger?.delegate = self
+                self.axleCentralManger?.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+            })
         case .starting:
             break
         case .enablingDfuMode:
             break
         case .uploading:
+            dfuTimeout?.invalidate()
             break
         case .validating:
             dfuTimeout?.invalidate()
@@ -267,6 +334,8 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
             dfuTimeout?.invalidate()
             SVProgressHUD.showError(withStatus: "Failed to update Device...")
             dfuInProgress = false
+            axleCentralManger?.delegate = self
+            axleCentralManger?.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         }
     }
     

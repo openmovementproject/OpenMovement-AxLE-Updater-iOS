@@ -14,6 +14,7 @@ class Device
     let peripheral:CBPeripheral
     var mac:String?
     var version:String?
+    var rxUart:CBCharacteristic?
     var txUart:CBCharacteristic?
     
     init(peripheral:CBPeripheral) {
