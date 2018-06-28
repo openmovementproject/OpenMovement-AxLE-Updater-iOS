@@ -12,10 +12,8 @@
 		032C26B820CACCE5002A7743 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032C26B620CACCE5002A7743 /* Main.storyboard */; };
 		032C26BA20CACCE6002A7743 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 032C26B920CACCE6002A7743 /* Assets.xcassets */; };
 		032C26BD20CACCE6002A7743 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032C26BB20CACCE6002A7743 /* LaunchScreen.storyboard */; };
-		033F548920D40C4C001B182E /* update-1.6.zip in Resources */ = {isa = PBXBuildFile; fileRef = 033F548820D40C4C001B182E /* update-1.6.zip */; };
 		0374119C20CACE090016C33A /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 0374119A20CACE090016C33A /* iTunesArtwork */; };
 		0374119D20CACE090016C33A /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 0374119B20CACE090016C33A /* iTunesArtwork@2x */; };
-		037411A320CAD5180016C33A /* update-1.5.zip in Resources */ = {isa = PBXBuildFile; fileRef = 037411A220CAD5180016C33A /* update-1.5.zip */; };
 		037411A520CAF77C0016C33A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037411A420CAF77C0016C33A /* Device.swift */; };
 		038F315E20D7F6980052EC9C /* update-1.7.zip in Resources */ = {isa = PBXBuildFile; fileRef = 038F315D20D7F6970052EC9C /* update-1.7.zip */; };
 		FE4E543E029F5D5D949B531E /* Pods_OpenMovement_AxLE_Firmware_Updater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0EF8904F2C3EBD2322A64B8 /* Pods_OpenMovement_AxLE_Firmware_Updater.framework */; };
@@ -29,10 +27,8 @@
 		032C26B920CACCE6002A7743 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		032C26BC20CACCE6002A7743 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		032C26BE20CACCE6002A7743 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		033F548820D40C4C001B182E /* update-1.6.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "update-1.6.zip"; sourceTree = "<group>"; };
 		0374119A20CACE090016C33A /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
-		0374119B20CACE090016C33A /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
-		037411A220CAD5180016C33A /* update-1.5.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "update-1.5.zip"; sourceTree = "<group>"; };
+		0374119B20CACE090016C33A /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		037411A420CAF77C0016C33A /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		038F315D20D7F6970052EC9C /* update-1.7.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "update-1.7.zip"; sourceTree = "<group>"; };
 		1BDDE5D0624782D1BFA7C81D /* Pods-OpenMovement AxLE Firmware Updater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMovement AxLE Firmware Updater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenMovement AxLE Firmware Updater/Pods-OpenMovement AxLE Firmware Updater.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,8 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				038F315D20D7F6970052EC9C /* update-1.7.zip */,
-				033F548820D40C4C001B182E /* update-1.6.zip */,
-				037411A220CAD5180016C33A /* update-1.5.zip */,
 				0374119A20CACE090016C33A /* iTunesArtwork */,
 				0374119B20CACE090016C33A /* iTunesArtwork@2x */,
 				032C26B220CACCE5002A7743 /* AppDelegate.swift */,
@@ -170,9 +164,7 @@
 				032C26BD20CACCE6002A7743 /* LaunchScreen.storyboard in Resources */,
 				032C26BA20CACCE6002A7743 /* Assets.xcassets in Resources */,
 				032C26B820CACCE5002A7743 /* Main.storyboard in Resources */,
-				033F548920D40C4C001B182E /* update-1.6.zip in Resources */,
 				038F315E20D7F6980052EC9C /* update-1.7.zip in Resources */,
-				037411A320CAD5180016C33A /* update-1.5.zip in Resources */,
 				0374119C20CACE090016C33A /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
