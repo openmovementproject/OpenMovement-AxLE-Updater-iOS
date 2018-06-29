@@ -11,7 +11,7 @@ import CoreBluetooth
 
 class Device
 {
-    let peripheral:CBPeripheral
+    let peripheral:CBPeripheral!
     var mac:String?
     var version:String?
     var rxUart:CBCharacteristic?
@@ -19,5 +19,13 @@ class Device
     
     init(peripheral:CBPeripheral) {
         self.peripheral = peripheral
+    }
+    
+    // MOCK
+    init() {
+        mac = String(format: "%06X%06X", arc4random_uniform(UInt32(UInt16.max)), arc4random_uniform(UInt32(UInt16.max)))
+        version = "1.6"
+        
+        peripheral = nil
     }
 }
