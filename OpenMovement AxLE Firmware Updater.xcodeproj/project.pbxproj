@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030D267F218C69810031F7C6 /* update-1.8.zip in Resources */ = {isa = PBXBuildFile; fileRef = 030D267E218C69810031F7C6 /* update-1.8.zip */; };
 		032C26B320CACCE5002A7743 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032C26B220CACCE5002A7743 /* AppDelegate.swift */; };
 		032C26B520CACCE5002A7743 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032C26B420CACCE5002A7743 /* ViewController.swift */; };
 		032C26B820CACCE5002A7743 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032C26B620CACCE5002A7743 /* Main.storyboard */; };
@@ -15,11 +16,11 @@
 		0374119C20CACE090016C33A /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 0374119A20CACE090016C33A /* iTunesArtwork */; };
 		0374119D20CACE090016C33A /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 0374119B20CACE090016C33A /* iTunesArtwork@2x */; };
 		037411A520CAF77C0016C33A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037411A420CAF77C0016C33A /* Device.swift */; };
-		038F315E20D7F6980052EC9C /* update-1.7.zip in Resources */ = {isa = PBXBuildFile; fileRef = 038F315D20D7F6970052EC9C /* update-1.7.zip */; };
 		FE4E543E029F5D5D949B531E /* Pods_OpenMovement_AxLE_Firmware_Updater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0EF8904F2C3EBD2322A64B8 /* Pods_OpenMovement_AxLE_Firmware_Updater.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		030D267E218C69810031F7C6 /* update-1.8.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "update-1.8.zip"; sourceTree = "<group>"; };
 		032C26AF20CACCE5002A7743 /* OpenMovement AxLE Firmware Updater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenMovement AxLE Firmware Updater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		032C26B220CACCE5002A7743 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		032C26B420CACCE5002A7743 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		0374119A20CACE090016C33A /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		0374119B20CACE090016C33A /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		037411A420CAF77C0016C33A /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		038F315D20D7F6970052EC9C /* update-1.7.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "update-1.7.zip"; sourceTree = "<group>"; };
 		1BDDE5D0624782D1BFA7C81D /* Pods-OpenMovement AxLE Firmware Updater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMovement AxLE Firmware Updater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenMovement AxLE Firmware Updater/Pods-OpenMovement AxLE Firmware Updater.debug.xcconfig"; sourceTree = "<group>"; };
 		7AAEB2B2ED4E79E04FCF7AF7 /* Pods-OpenMovement AxLE Firmware Updater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMovement AxLE Firmware Updater.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenMovement AxLE Firmware Updater/Pods-OpenMovement AxLE Firmware Updater.release.xcconfig"; sourceTree = "<group>"; };
 		E0EF8904F2C3EBD2322A64B8 /* Pods_OpenMovement_AxLE_Firmware_Updater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMovement_AxLE_Firmware_Updater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +69,7 @@
 		032C26B120CACCE5002A7743 /* OpenMovement AxLE Firmware Updater */ = {
 			isa = PBXGroup;
 			children = (
-				038F315D20D7F6970052EC9C /* update-1.7.zip */,
+				030D267E218C69810031F7C6 /* update-1.8.zip */,
 				0374119A20CACE090016C33A /* iTunesArtwork */,
 				0374119B20CACE090016C33A /* iTunesArtwork@2x */,
 				032C26B220CACCE5002A7743 /* AppDelegate.swift */,
@@ -134,6 +134,7 @@
 				TargetAttributes = {
 					032C26AE20CACCE5002A7743 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -163,8 +164,8 @@
 				0374119D20CACE090016C33A /* iTunesArtwork@2x in Resources */,
 				032C26BD20CACCE6002A7743 /* LaunchScreen.storyboard in Resources */,
 				032C26BA20CACCE6002A7743 /* Assets.xcassets in Resources */,
+				030D267F218C69810031F7C6 /* update-1.8.zip in Resources */,
 				032C26B820CACCE5002A7743 /* Main.storyboard in Resources */,
-				038F315E20D7F6980052EC9C /* update-1.7.zip in Resources */,
 				0374119C20CACE090016C33A /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +376,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.ncl.OpenLab.OpenMovement-AxLE-Firmware-Updater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -394,7 +395,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.ncl.OpenLab.OpenMovement-AxLE-Firmware-Updater";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
