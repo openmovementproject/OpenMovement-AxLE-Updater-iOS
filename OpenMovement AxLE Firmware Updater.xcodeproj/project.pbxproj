@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		030D267F218C69810031F7C6 /* update-1.8.zip in Resources */ = {isa = PBXBuildFile; fileRef = 030D267E218C69810031F7C6 /* update-1.8.zip */; };
 		032C26B320CACCE5002A7743 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032C26B220CACCE5002A7743 /* AppDelegate.swift */; };
 		032C26B520CACCE5002A7743 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032C26B420CACCE5002A7743 /* ViewController.swift */; };
 		032C26B820CACCE5002A7743 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032C26B620CACCE5002A7743 /* Main.storyboard */; };
 		032C26BA20CACCE6002A7743 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 032C26B920CACCE6002A7743 /* Assets.xcassets */; };
 		032C26BD20CACCE6002A7743 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032C26BB20CACCE6002A7743 /* LaunchScreen.storyboard */; };
+		0359435D2191C8AE001D7F92 /* update-1.10.zip in Resources */ = {isa = PBXBuildFile; fileRef = 0359435C2191C8AE001D7F92 /* update-1.10.zip */; };
 		0374119C20CACE090016C33A /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 0374119A20CACE090016C33A /* iTunesArtwork */; };
 		0374119D20CACE090016C33A /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 0374119B20CACE090016C33A /* iTunesArtwork@2x */; };
 		037411A520CAF77C0016C33A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037411A420CAF77C0016C33A /* Device.swift */; };
@@ -20,7 +20,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		030D267E218C69810031F7C6 /* update-1.8.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "update-1.8.zip"; sourceTree = "<group>"; };
 		032C26AF20CACCE5002A7743 /* OpenMovement AxLE Firmware Updater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenMovement AxLE Firmware Updater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		032C26B220CACCE5002A7743 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		032C26B420CACCE5002A7743 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,6 +27,7 @@
 		032C26B920CACCE6002A7743 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		032C26BC20CACCE6002A7743 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		032C26BE20CACCE6002A7743 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0359435C2191C8AE001D7F92 /* update-1.10.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "update-1.10.zip"; sourceTree = "<group>"; };
 		0374119A20CACE090016C33A /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		0374119B20CACE090016C33A /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		037411A420CAF77C0016C33A /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 		032C26B120CACCE5002A7743 /* OpenMovement AxLE Firmware Updater */ = {
 			isa = PBXGroup;
 			children = (
-				030D267E218C69810031F7C6 /* update-1.8.zip */,
+				0359435C2191C8AE001D7F92 /* update-1.10.zip */,
 				0374119A20CACE090016C33A /* iTunesArtwork */,
 				0374119B20CACE090016C33A /* iTunesArtwork@2x */,
 				032C26B220CACCE5002A7743 /* AppDelegate.swift */,
@@ -164,9 +164,9 @@
 				0374119D20CACE090016C33A /* iTunesArtwork@2x in Resources */,
 				032C26BD20CACCE6002A7743 /* LaunchScreen.storyboard in Resources */,
 				032C26BA20CACCE6002A7743 /* Assets.xcassets in Resources */,
-				030D267F218C69810031F7C6 /* update-1.8.zip in Resources */,
 				032C26B820CACCE5002A7743 /* Main.storyboard in Resources */,
 				0374119C20CACE090016C33A /* iTunesArtwork in Resources */,
+				0359435D2191C8AE001D7F92 /* update-1.10.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

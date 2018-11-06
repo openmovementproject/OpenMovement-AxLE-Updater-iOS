@@ -42,7 +42,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         
         dfuInProgress = false
         
-        firmware = DFUFirmware(urlToZipFile: URL(fileURLWithPath: Bundle.main.path(forResource: "update-1.8", ofType: "zip")!))!
+        firmware = DFUFirmware(urlToZipFile: URL(fileURLWithPath: Bundle.main.path(forResource: "update-1.10", ofType: "zip")!))!
         
         super.init(coder: aDecoder)
         axleCentralManger = CBCentralManager(delegate: self, queue: nil)
