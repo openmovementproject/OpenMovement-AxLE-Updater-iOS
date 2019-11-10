@@ -240,7 +240,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         alert.addAction(UIAlertAction(title: "Update", style: .destructive, handler: { (a) in
             device.peripheral.writeValue("XB".data(using: .utf8)!, for: device.txUart!, type: .withoutResponse)
             
-            if let di = self.devices.index(where: { (d) -> Bool in
+            if let di = self.devices.firstIndex(where: { (d) -> Bool in
                 return d.peripheral.identifier == device.peripheral.identifier
             })
             {
@@ -254,7 +254,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
                 SVProgressHUD.showError(withStatus: "Unable to put device in DFU mode!")
             })
             
-            self.dfuQueue.remove(at: self.dfuQueue.index(of: device.peripheral.identifier)!)
+            self.dfuQueue.remove(at: self.dfuQueue.firstIndex(of: device.peripheral.identifier)!)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (a) in
