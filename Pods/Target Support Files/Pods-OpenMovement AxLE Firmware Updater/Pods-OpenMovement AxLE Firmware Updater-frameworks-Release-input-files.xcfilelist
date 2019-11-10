@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-OpenMovement AxLE Firmware Updater/Pods-OpenMovement AxLE Firmware Updater-frameworks.sh
+${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework
+${BUILT_PRODUCTS_DIR}/Zip/Zip.framework
+${BUILT_PRODUCTS_DIR}/iOSDFULibrary/iOSDFULibrary.framework

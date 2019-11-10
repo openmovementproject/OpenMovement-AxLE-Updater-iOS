@@ -13,7 +13,7 @@ import SVProgressHUD
 
 class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeripheralDelegate, LoggerDelegate, DFUServiceDelegate, DFUProgressDelegate {
     let AxLEDeviceName = "axLE-Band"
-    let AxLEBootloaderDeviceName = "OM-DFU"
+    let AxLEBootloaderDeviceName = "i5-DFU"
     
     let UartServiceUuid = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
     let UartRxCharacUuid = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
@@ -42,7 +42,7 @@ class ViewController: UITableViewController, CBCentralManagerDelegate, CBPeriphe
         
         dfuInProgress = false
         
-        firmware = DFUFirmware(urlToZipFile: URL(fileURLWithPath: Bundle.main.path(forResource: "update-1.10", ofType: "zip")!))!
+        firmware = DFUFirmware(urlToZipFile: URL(fileURLWithPath: Bundle.main.path(forResource: "update-2.6", ofType: "zip")!))!
         
         super.init(coder: aDecoder)
         axleCentralManger = CBCentralManager(delegate: self, queue: nil)
